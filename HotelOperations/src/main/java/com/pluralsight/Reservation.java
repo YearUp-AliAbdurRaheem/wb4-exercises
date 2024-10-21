@@ -47,7 +47,7 @@ public class Reservation {
 
     public double getReservationTotal() {
         return isWeekend ?
-                getPrice() / 10
+                getPrice() + (getPrice() / 10)
                 :
                 getPrice();
     }
