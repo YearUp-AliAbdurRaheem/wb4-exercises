@@ -30,7 +30,7 @@ public class Employee {
     // Derived Getters
     public double getTotalPay() {
         return (hoursWorked > regularHours) ?
-                getOvertimeHours() * (payRate * overtimeRate)
+                (regularHours * payRate) + ((getOvertimeHours() * payRate) * overtimeRate)
                 :
                 (hoursWorked * payRate);
     }
