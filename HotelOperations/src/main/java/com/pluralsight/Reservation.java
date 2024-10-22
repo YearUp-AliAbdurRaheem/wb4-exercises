@@ -26,6 +26,9 @@ public class Reservation {
     }
 
     public void setNumberOfNights(int numberOfNights) {
+        if (isWeekend && numberOfNights > 2) {
+            throw new IllegalArgumentException("Too long of weekend: " + numberOfNights);
+        }
         this.numberOfNights = numberOfNights;
     }
 
@@ -47,8 +50,8 @@ public class Reservation {
 
     public double getReservationTotal() {
         return isWeekend ?
-                getPrice() + (getPrice() / 10)
+                (getPrice() + (getPrice() / 10)) * numberOfNights
                 :
-                getPrice();
+                getPrice() * numberOfNights;
     }
 }
