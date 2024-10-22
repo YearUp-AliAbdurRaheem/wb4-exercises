@@ -7,7 +7,12 @@ public class Employee {
     private double payRate;
     private double hoursWorked;
 
-    private int regularHours;
+    private int regularHours = 40;
+
+    public void setOvertimeRate(double overtimeRate) {
+        this.overtimeRate = overtimeRate;
+    }
+
     private double overtimeRate = 1.5;
 
     public Employee(int EID,
@@ -22,6 +27,7 @@ public class Employee {
         this.hoursWorked = hoursWorked;
     }
 
+    // Derived Getters
     public double getTotalPay() {
         return (hoursWorked > regularHours) ?
                 getOvertimeHours() * (payRate * overtimeRate)
@@ -35,6 +41,7 @@ public class Employee {
                 0;
     }
 
+    // Getters
     public int getEID() {
         return EID;
     }
@@ -81,5 +88,9 @@ public class Employee {
 
     public void setRegularHours(int regularHours) {
         this.regularHours = regularHours;
+    }
+
+    public double getOvertimeRate() {
+        return overtimeRate;
     }
 }
