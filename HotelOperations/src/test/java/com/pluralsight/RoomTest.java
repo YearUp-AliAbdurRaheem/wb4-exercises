@@ -6,15 +6,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RoomTest {
     Room room = new Room(2, 100, false, false);
-    Room room2 = new Room(2, 100.0, false, true);
-    Room room3 = new Room(2, 100.0, true, false);
-    Room room4 = new Room(2, 100.0, true, true);
+    Room room2 = new Room(2, 100, false, true);
+    Room room3 = new Room(2, 100, true, false);
+    Room room4 = new Room(2, 100, true, true);
 
     @Test
     public void testRoomConstructor() {
 
         assertEquals(2, room.getNumberOfBeds());
-        assertEquals(100.0, room.getPrice());
+        assertEquals(100, room.getPrice());
         assertFalse(room.isOccupied());
         assertFalse(room.isDirty());
     }
@@ -28,7 +28,7 @@ class RoomTest {
 
     @Test
     public void testCheckInFailsIfOccupied() {
-        room = new Room(2, 100.0, true, false);
+        room = new Room(2, 100, true, false);
         Exception exception = assertThrows(Exception.class, () -> room.checkIn());
         assertEquals("Error: The room is occupied.", exception.getMessage());
     }
@@ -37,14 +37,14 @@ class RoomTest {
 
     @Test
     public void testCheckInFailsIfDirty() {
-        room = new Room(2, 100.0, false, true);
+        room = new Room(2, 100, false, true);
         Exception exception = assertThrows(Exception.class, () -> room.checkIn());
         assertEquals("Error: The room is dirty.", exception.getMessage());
     }
 
     @Test
     public void testCheckInFailsIfOccupiedAndDirty() {
-        room = new Room(2, 100.0, true, true);
+        room = new Room(2, 100, true, true);
         Exception exception = assertThrows(Exception.class, () -> room.checkIn());
         assertEquals("Error: The room is occupied and dirty.", exception.getMessage());
     }
