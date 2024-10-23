@@ -55,6 +55,9 @@ public class Reservation {
 
 
     public double getPrice() {
+        if (RoomType == null) {
+            throw new IllegalArgumentException("RoomType Cannot Be Null!: Please Set RoomType!");
+        }
         return RoomType.equalsIgnoreCase("king") ?
                     139.00
                     :

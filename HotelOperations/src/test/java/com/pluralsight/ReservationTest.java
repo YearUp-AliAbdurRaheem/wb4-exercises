@@ -208,7 +208,7 @@ class ReservationTest {
         assertEquals("NumberOfNights Cannot Be Negative!", exception.getMessage());
     }
 
-
+    @Test
     public void testGetPriceWhenRoomTypeIsUnset() {
         Reservation reservation = new Reservation();
         Exception exception = assertThrows(IllegalArgumentException.class, reservation::getPrice);
