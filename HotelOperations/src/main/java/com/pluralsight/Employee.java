@@ -1,5 +1,8 @@
 package com.pluralsight;
 
+import java.time.Duration;
+import java.time.LocalTime;
+
 public class Employee {
     private int EID;
     private String name;
@@ -8,12 +11,11 @@ public class Employee {
     private double hoursWorked;
 
     private int regularHours = 40;
-
-    public void setOvertimeRate(double overtimeRate) {
-        this.overtimeRate = overtimeRate;
-    }
-
     private double overtimeRate = 1.5;
+
+    private double punchInTime = -1; // -1 means employee never punched in
+
+    private LocalTime localPunchInTime;
 
     public Employee(int EID,
                     String name,
@@ -25,6 +27,32 @@ public class Employee {
         this.department = department;
         this.payRate = payRate;
         this.hoursWorked = hoursWorked;
+    }
+
+    public void punchIn(double punchInTime) {
+        this.punchInTime = punchInTime;
+    }
+
+    public void punchOut(double punchOutTime) throws Exception {
+        if (this.punchInTime == -1) {
+            throw new Exception("Error: Employee cannot punch out before punching in.");
+        }
+        hoursWorked += punchOutTime - punchInTime;
+        this.punchInTime = -1;
+    }
+
+    public void punchTimeSheet(double punchInTime, double punchOutTime) {
+        hoursWorked += punchOutTime - punchInTime;
+        this.punchInTime = -1;
+    }
+
+    public void punchIn() {
+        localPunchInTime = LocalTime.now();
+    }
+
+    public void punchOut() {
+       // hoursWorked += LocalTime.now().minusHours(localPunchInTime.getHour()).getHour(); // doesn't work
+        hoursWorked += Duration.between(localPunchInTime, LocalTime.now()).toHours();
     }
 
     // Derived Getters
@@ -88,6 +116,10 @@ public class Employee {
 
     public void setRegularHours(int regularHours) {
         this.regularHours = regularHours;
+    }
+
+    public void setOvertimeRate(double overtimeRate) {
+        this.overtimeRate = overtimeRate;
     }
 
     public double getOvertimeRate() {

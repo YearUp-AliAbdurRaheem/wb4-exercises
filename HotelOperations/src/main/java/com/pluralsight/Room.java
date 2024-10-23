@@ -2,35 +2,58 @@ package com.pluralsight;
 
 public class Room {
     // Private attributes
-    private final int NUMBER_OF_BEDS;
-    private final double PRICE;
-    private final boolean OCCUPIED;
-    private final boolean DIRTY;
+    private int numberOfBeds;
+    private double price;
+    private boolean occupied;
+    private boolean dirty;
 
-    public Room(int numberOfBeds, double price, boolean occupied, boolean dirty) {
-        NUMBER_OF_BEDS = numberOfBeds;
-        PRICE = price;
-        OCCUPIED = occupied;
-        DIRTY = dirty;
+    public Room(int numberOfBeds, double price, boolean isOccupied, boolean isDirty) {
+        this.numberOfBeds = numberOfBeds;
+        this.price = price;
+        occupied = isOccupied;
+        dirty = isDirty;
     }
 
-    public int getNUMBER_OF_BEDS() {
-        return NUMBER_OF_BEDS;
+    public void checkIn() throws Exception {
+        if (occupied || dirty) {
+            throw new Exception("Error: The room is " +
+                    (occupied ? "occupied" : "") +
+                    (occupied && dirty ? " and " : "") +
+                    (dirty ? "dirty" : "") +
+                    ".");
+        }
+        occupied = dirty = true;
     }
 
-    public double getPRICE() {
-        return PRICE;
+    public void checkOut() throws Exception {
+        if (!occupied) {
+            throw new Exception("Error: The room is unoccupied.");
+        }
+        occupied = false;
+        dirty = true;
     }
 
-    public boolean isOCCUPIED() {
-        return OCCUPIED;
+    public void cleanRoom() {
+        dirty = false;
     }
 
-    public boolean isDIRTY() {
-        return DIRTY;
+    public int getNumberOfBeds() {
+        return numberOfBeds;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public boolean isOccupied() {
+        return occupied;
+    }
+
+    public boolean isDirty() {
+        return dirty;
     }
 
     public boolean isAvailable() {
-        return OCCUPIED && DIRTY;
+        return occupied && dirty;
     }
 }
