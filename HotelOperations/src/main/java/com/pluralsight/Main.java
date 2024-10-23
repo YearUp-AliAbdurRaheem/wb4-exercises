@@ -46,7 +46,7 @@ public class Main {
             System.out.println(e.getMessage());
         }
 
-        System.out.println(new Employee(0, "Ali", "Python", 10, 41).getLocalPunchInTime());
+//        System.out.println(new Employee(0, "Ali", "Python", 10, 41).getLocalPunchInTime()); // Checking if localPunchInTime is null
 
     }
 }

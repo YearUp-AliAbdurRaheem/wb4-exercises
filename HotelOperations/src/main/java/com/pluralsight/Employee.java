@@ -50,8 +50,10 @@ public class Employee {
         localPunchInTime = LocalTime.now();
     }
 
-    public void punchOut() {
-       // hoursWorked += LocalTime.now().minusHours(localPunchInTime.getHour()).getHour(); // doesn't work
+    public void punchOut() throws Exception {
+        if (localPunchInTime == null) {
+            throw new Exception("Error: Employee cannot punch out before punching in.");
+        }
         hoursWorked += Duration.between(localPunchInTime, LocalTime.now()).toHours();
     }
 
