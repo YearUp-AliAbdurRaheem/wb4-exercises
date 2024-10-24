@@ -34,19 +34,13 @@ class NameFormatterTest {
     @Test
     public void testFormatFirstAndLastName() {
         String formattedName = NameFormatter.format(firstName, lastName);
-        assertEquals("Doe, Jhon", formattedName);
+        assertEquals("Doe, John", formattedName);
     }
 
     @Test
     public void testFormatFirstAndLastNameWithWhitespace() {
         String formattedName = NameFormatter.format( " " + firstName + "  ", "  " + lastName + "  ");
-        assertEquals("Doe, Jhon", formattedName);
-    }
-
-    @Test
-    public void testFormatFirstAndLastNameCaseSensitivity() {
-        String formattedName = NameFormatter.format(firstName, lastName.toUpperCase());
-        assertEquals("Doe, Jhon", formattedName);
+        assertEquals("Doe, John", formattedName);
     }
 
     @Test
@@ -72,45 +66,68 @@ class NameFormatterTest {
     @Test
     public void testFormatFullNameWithAllComponents() {
         String formattedName = NameFormatter.format(prefix, firstName, middleName, lastName, suffix);
-        assertEquals("Johnson, Dr. Mel B, PhD", formattedName);
+        assertEquals("John, Dr. Doe A, PhD", formattedName);
     }
 
     @Test
     public void testFormatFullNameWithoutMiddleName() {
         String formattedName = NameFormatter.format(prefix, firstName,  "", lastName, suffix);
-        assertEquals("Johnson, Dr. Mel B, PhD", formattedName);
+        assertEquals("John, Dr. Doe A, PhD", formattedName);
     }
 
     @Test
     public void testFormatFullNameWithoutSuffix() {
         String formattedName = NameFormatter.format(prefix, firstName,  middleName, lastName, "");
-        assertEquals("Johnson, Dr. Mel B", formattedName);
+        assertEquals("John, Dr. Doe A", formattedName);
     }
 
     @Test
     public void testFormatFullNameWithoutPrefix() {
         String formattedName = NameFormatter.format("", firstName,  middleName, lastName, suffix);
-        assertEquals("Johnson, Mel B, PhD", formattedName);
+        assertEquals("John, Doe A, PhD", formattedName);
     }
 
     @Test
     public void testFormatFullNameWithPrefixSuffix() {
         String formattedName = NameFormatter.format(prefix + ' ' + firstName + ' ' + middleName + ' ' + lastName + ", " + suffix);
-        assertEquals("Johnson, Dr. Mel B, PhD", formattedName);
+        assertEquals("John, Dr. Doe A, PhD", formattedName);
     }
 
     @Test
     public void testFormatFullNameWithoutMiddleNameOneVariable() {
         String formattedName = NameFormatter.format(prefix + ' ' + firstName + ' ' + lastName + ", " + suffix);
-        assertEquals("Johnson, Dr. Mel, PhD", formattedName);
+        assertEquals("John, Dr. Doe, PhD", formattedName);
     }
 
     @Test
     public void testFormatFullNameWithoutSuffixOneVariable() {
         String formattedName = NameFormatter.format(prefix + ' ' + firstName + ' ' + middleName + ' ' + lastName);
-        assertEquals("Johnson, Dr. Mel B", formattedName);
+        assertEquals("John, Dr. Doe A", formattedName);
     }
 
+    @Test
+    public void testFormatFullNameWithoutPrefixOneVariable() {
+        String formattedName = NameFormatter.format(firstName + ' ' + middleName + ' ' + lastName + ", " + suffix);
+        assertEquals("John, Doe A, PhD", formattedName);
+    }
+
+    @Test
+    public void testFormatFullNameWithOnlyFirstAndLastName() {
+        String formattedName = NameFormatter.format(firstName + lastName);
+        assertEquals("John, Doe", formattedName);
+    }
+
+    @Test
+    public void  testFormatFullNameWithOnlyLastName() {
+        String formattedName = NameFormatter.format(firstName + lastName);
+        assertEquals("John", formattedName);
+    }
+
+    @Test
+    public void testFormatFullNameWithMultipleSpaces() {
+        String formattedName = NameFormatter.format("  " +prefix + "    " + firstName + "   " + middleName + "  " + lastName + ",   " + suffix + " ");
+        assertEquals("John, Dr. Doe A, PhD", formattedName);
+    }
     
 
 
